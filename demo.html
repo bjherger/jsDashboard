@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fuelly data drop</title>
+    <link href="css/dc.css" rel="stylesheet">
+    <link href="css/bootswatch/yeti2/bootstrap.css" rel="stylesheet">
+    <!-- <link href="http://bootswatch.com/yeti/bootstrap.css" rel="stylesheet"> -->
+    <meta name="description" content="An interactive dashboard to display information from the Fuelly">
+    <meta name="author" content="Brendan J. Herger, 13herger@gmail.com">
+    <meta charset="utf-8">
+</head>
+<body class="background-dark">
+
+
+<!-- Body
+    ************************************************************************************ -->
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="jumbotron">
+                <h1>
+                    Fuelly <small>data drop </small>
+                </h1>
+
+
+     <!--                <center><img src="./img/raven.png" class="img-responsive" alt="Responsive image"></center> -->
+                    
+
+                    <br>
+                    <br>
+
+
+
+                    <p class="text-muted"> Fuelly is a service which allows users to track the distance between fuel fill ups (via the odometer), and amount that of fuel they have pumped, giving an empirical MPG rating. </p>
+
+                    <p >Here's some data from my Scion IQ. It's all interactive, so feel free to play with it. </p>
+
+                        <!-- ~Bradford<p> -->
+                    
+                    <br>
+                     
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-8 column">
+        </div>
+        <div class="col-md-4 column">
+        </div>
+    </div>
+</div>
+
+<!-- ******************************************************************** -->
+
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <h1> MPG <small> How's my milage? </small> </h1> 
+            <div class="well">
+                
+
+                <div class="col-sm-12 ">
+                    <!-- <div id="chart-bar-mpg"> -->
+                    <p>
+                        <div id="chart-bar-mpg">
+                        </div> 
+                    </p>
+                    <p class="text-muted"></p>
+                </div>
+                
+
+                <small> &nbsp </small> <!-- So well performs correctly -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ******************************************************************** -->
+
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <h1> Fuel Cost & Mileage: <small> Do gas prices effect driving style? </small> </h1> 
+            <div class="well">
+                
+                <div class="col-sm-3 ">
+                    <div class="row clearfix">
+                        <div class="col-md-12 column">
+                            <loud>
+                                <div id="chart-avg-mpg">
+                                </div> 
+                            </loud> 
+                        </div >
+                        <div class="col-md-12 column">
+                           <h3 class="text-muted">Average MPG </h3>
+                        </div >
+                    </div>
+                </div>
+                <div class="col-sm-3 ">
+                    <div class="row clearfix">
+                        <div class="col-md-12 column">
+                            <loud>
+                                <div id="chart-avg-price">
+                                </div> 
+                            </loud> 
+                        </div >
+                        <div class="col-md-12 column">
+                           <h3 class="text-muted">Average Price ($) </h3>
+                        </div >
+                    </div>
+                </div>
+                <div class="col-sm-6 ">
+                    <!-- <div id="chart-bar-mpg"> -->
+                    <h4> 
+                        <div id="chart-line-price-mpg">
+                        </div> 
+                    </h4>
+                    <p class="text-muted"></p>
+                </div>
+
+
+                <small> &nbsp </small> <!-- So well performs correctly -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- *************************************************************************** -->
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <h1> MPG Cost Over Time: <small> How does my MPG trend over time? </h1>
+            <div class="well">
+                
+                <div class="col-sm-12 ">
+                    <div class="row clearfix">
+                        <div class="col-md-12 column">
+                            <p> 
+                                <h4>
+                                    <div id="chart-line-date-mpg">
+                                    </div> 
+                                </h4>
+                            </p>
+                        </div >
+                        <div class="col-md-12 column">
+                           <p class="text-muted"> </p>
+                        </div >
+                    </div>
+                </div>
+               
+
+                <small> &nbsp </small> <!-- So well performs correctly -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- *************************************************************************** -->
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <h1> Fill up info <small> When do I fill up? </h1>
+            <div class="well">
+                
+                <div class="col-sm-6 ">
+                    <div id="chart-row-day">
+                    </div>
+
+                    <h3 class="text-muted"> Day of week</h3>
+                        
+                </div>
+                <div class="col-sm-6 ">
+                    <h4>
+                        <div id="chart-bar-hour">
+                        </div>
+                    </h4>
+                    <h3 class="text-muted"> Hour </h3>
+                        
+                </div>
+               
+
+                <small> &nbsp </small> <!-- So well performs correctly -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- dc.js-->
+<script type="text/javascript" src="./js/d3.js"></script>
+<script type="text/javascript" src="./js/crossfilter.js"></script>
+<script type="text/javascript" src="./js/dc.js"></script>
+
+<!-- jquery and friends -->
+<script src="./js/jquery-2.1.1.min.js"> </script>
+
+<!-- bootstrap -->
+<script src="./js/bootstrap.min.js"> </script>
+
+<!-- Page specific javscript -->
+<script type="text/javascript">var filename = "sampData.json";</script> <!-- Put your data here  -->
+<script type="text/javascript" src="./js/index.js"></script>
+
+
+
+</body>
+</html>
