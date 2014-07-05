@@ -323,9 +323,7 @@ function genBarCharts(){
     if (barCharts["hour"]){
         setWHRatio(barCharts["hour"],.75)
     };
-    if (barCharts["mpg"]){
-        setWHRatio(barCharts["mpg"],.25)
-    };
+
 }
 
 
