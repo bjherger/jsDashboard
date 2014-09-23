@@ -1,7 +1,5 @@
 console.log('begin javascript');
 
-
-
 //Data
 //***********************************************************************
 d3.json(filename, function(error, data){
@@ -267,7 +265,7 @@ function genBarCharts(){
                 ]
                 ))
             // .xUnits(function(){
-                // return 500
+            //     return 5
             // })
             .colors(color)
             
@@ -299,7 +297,14 @@ function genBarCharts(){
 
     };
 
-    // if (barCharts["day"]){
+    if (barCharts["price"]){
+        barCharts["price"]
+            .barPadding(100.1)
+            .xUnits(function(){
+                return 1
+            })
+        setWHRatio(barCharts["price"], .4)
+    }
 
     //     barCharts["day"].ordering(function(v){
     //         day = v.key;
@@ -322,6 +327,9 @@ function genBarCharts(){
 
     if (barCharts["hour"]){
         setWHRatio(barCharts["hour"],.75)
+    };
+    if (barCharts["mpg"]){
+        setWHRatio(barCharts["mpg"],.25)
     };
 
 }
@@ -479,15 +487,103 @@ function genAvgCharts2(){
 
 
 genLineCharts()
+genLineCharts2()
 
 function genLineCharts(){
     lineChartKeywords = getLineLabels();
-    for (var qInt in lineChartKeywords){
+    for (var qInt in [0]){
+        qInt = 0
         var lineX = lineChartKeywords[qInt][0]; //variable key to use
         var lineY = lineChartKeywords[qInt][1];
 
+        console.log(lineX)
+        console.log(lineY)
+
         var width =1 *  $("#chart-line-" + lineX + "-" + lineY).parent().width();
-        var whratio =.5 // height = whratio * width
+        var whratio =.25 // height = whratio * width
+        // filter
+        var localDim = ndx.dimension( function(d)  { 
+                if (d[lineX]  == undefined) {//if row is missing any data, whole row is removed
+
+                    return "No Response";
+                }
+                else{
+
+                    return d[lineX]
+                } 
+            } 
+        )
+        ;
+
+        //Remove rows with undefined element(s)
+        // localFilter = localDim.filter("undefinedIndicatorVariable");
+        // var localFilter = localDim.group().reduceCount(); 
+        var localFilter = localDim.group().reduce(
+                function (p, v) {
+                    p.val = v[lineY];
+                    return p;
+                },
+                function (p, v) {
+                    return p;
+                },
+                function () {
+                    return {val: 0};
+                }
+            );
+
+        var localChart = dc.lineChart("#chart-line-" + lineX + "-" + lineY)
+            .width(width).height(width * whratio)
+            .renderArea(true)
+            .dimension(localDim)
+            .group(localFilter)
+            // .dotRadius(30)
+            .x(d3.scale.linear().domain(
+                [
+                    localDim.bottom(1)[0][lineX],
+                    localDim.top(1)[0][lineX] 
+                ]
+                ))
+            // .round(d3.time.month.round)
+            // .xUnits(d3.time.months)
+            .renderHorizontalGridLines(true)
+            .valueAccessor(function (d) {
+                return d.value.val;
+            })
+            .xAxisLabel([lineX])
+            .yAxisLabel([lineY])
+            .colors(color)
+            ;
+
+            if (lineX == "date"){
+                localChart.x(d3.time.scale().domain(
+                    [
+                        localDim.bottom(1)[0][lineX],
+                        localDim.top(1)[0][lineX]
+                    ]
+                    ))
+            } else if(localDim.bottom(1)[0][lineX].__proto__ == 0){
+                localChart.x(d3.scale.linear().domain(
+                    [
+                        localDim.bottom(1)[0][lineX],
+                        localDim.top(1)[0][lineX]
+                    ]
+                    ))
+            }
+    }
+}
+
+function genLineCharts2(){
+    lineChartKeywords = getLineLabels();
+    for (var qInt in [1]){
+        qInt = 1
+        var lineX = lineChartKeywords[qInt][0]; //variable key to use
+        var lineY = lineChartKeywords[qInt][1];
+
+        console.log(lineX)
+        console.log(lineY)
+
+        var width =1 *  $("#chart-line-" + lineX + "-" + lineY).parent().width();
+        var whratio =.25 // height = whratio * width
         // filter
         var localDim = ndx.dimension( function(d)  { 
                 if (d[lineX]  == undefined) {//if row is missing any data, whole row is removed
@@ -633,6 +729,7 @@ function getLineLabels(){
         word = word.replace("\"chart-line-", "");
         word = word.replace("\"", "");
         words[wordIndex] = word.split("-");
+
 
     }
     return words
